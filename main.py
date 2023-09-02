@@ -1,8 +1,6 @@
-from urllib.request import *
-import ssl
-
 import requests
 from bs4 import BeautifulSoup
+import re
 
 URL = "https://www.ics.uci.edu/faculty/"
 
@@ -13,14 +11,24 @@ html = response.text
 soup = BeautifulSoup(html, "html.parser")
 
 tags = soup.find_all('a')
-new_list = []
-#this is a test line
-#anther test line
+new_emails_list = []
+new_names_list = []
+
 for tag in tags:
     if '@' in tag.text:
-        new_list.append(tag.text)
+        new_emails_list.append(tag.text)
+print(tags)
+for i in range(len(tags)):
+    if '@' in tags[i].text:
+        new_names_list.append(tags[i-1].text.strip())
 
-print(new_list)
 
+with open('emails.txt', 'w') as f:
+    for email in new_emails_list:
+        f.write(email + '\n')
+
+with open('names.txt', 'w') as f:
+    for name in new_names_list:
+        f.write(name + '\n')
 
 
