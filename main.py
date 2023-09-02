@@ -17,7 +17,6 @@ new_names_list = []
 for tag in tags:
     if '@' in tag.text:
         new_emails_list.append(tag.text)
-print(tags)
 for i in range(len(tags)):
     if '@' in tags[i].text:
         new_names_list.append(tags[i-1].text.strip())
@@ -26,6 +25,10 @@ for i in range(len(tags)):
 with open('emails.txt', 'w') as f:
     for email in new_emails_list:
         f.write(email + '\n')
+
+for i in range(len(new_names_list)):
+    names = new_names_list[i].split(' ')
+    new_names_list[i] = names[-1]
 
 with open('names.txt', 'w') as f:
     for name in new_names_list:
