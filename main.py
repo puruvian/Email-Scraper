@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import re
 
 URL = "https://www.ics.uci.edu/faculty/"
 
