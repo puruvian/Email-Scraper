@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 
 URL = "https://www.ics.uci.edu/faculty/"
+# Change this to False if you want the full names of professors
+LAST_NAMES = True
 
 response = requests.request(
     "GET", URL)
@@ -21,16 +23,18 @@ for i in range(len(tags)):
         new_names_list.append(tags[i-1].text.strip())
 
 
-with open('emails.txt', 'w') as f:
+with open('emails_uci.txt', 'w') as f:
     for email in new_emails_list:
         f.write(email + '\n')
 
-for i in range(len(new_names_list)):
-    names = new_names_list[i].split(' ')
-    new_names_list[i] = names[-1]
+if LAST_NAMES:
+    for i in range(len(new_names_list)):
+        names = new_names_list[i].split(' ')
+        new_names_list[i] = names[-1]
 
-with open('names.txt', 'w') as f:
+with open('names_uci.txt', 'w') as f:
     for name in new_names_list:
         f.write(name + '\n')
 
-
+print("Program finished. You can find professor emails in emails_uci.txt and professor names in names_uci.txt. These "
+      "have both been created in your local directory.")
