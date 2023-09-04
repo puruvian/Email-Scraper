@@ -19,11 +19,30 @@ driver.quit()
 
 soup = BeautifulSoup(html, "html.parser")
 
-a_tags = soup.find_all('a', class_="mailto-link")
-emails = [a_tag.text.strip() for a_tag in a_tags]
+cards = soup.find_all('article', class_='card')
+new_cards = []
 
-name_tags = soup.find_all('h4', class_="people-title")
-names = [h4.findChildren()[0].text.strip() for h4 in name_tags]
+for i in range(len(cards)):
+    print(cards)
+    i_tag = cards[i].findChildren(recursive=True, name='i')[0]
+    if "Emeritus" in i_tag.text or "Emerita" in i_tag.text:
+        pass
+    else:
+        new_cards.append(cards[i])
+
+emails = []
+names = []
+for card in new_cards:
+    a_tag = card.findChild(name='a', recursive=True, class_="mailto-link")
+    emails.append(a_tag.text.strip())
+
+    h4_tag = card.findChild(name='h4', class_="people-title", recursive=True)
+    names.append(h4_tag.findChildren()[0].text.strip())
+# a_tags = soup.find_all('a', class_="mailto-link")
+# emails = [a_tag.text.strip() for a_tag in a_tags]
+
+# name_tags = soup.find_all('h4', class_="people-title")
+# names = [h4.findChildren()[0].text.strip() for h4 in name_tags]
 
 with open("emails_ucla.txt", 'w') as f:
     for email in emails:
