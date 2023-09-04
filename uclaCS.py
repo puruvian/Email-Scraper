@@ -23,7 +23,6 @@ cards = soup.find_all('article', class_='card')
 new_cards = []
 
 for i in range(len(cards)):
-    print(cards)
     i_tag = cards[i].findChildren(recursive=True, name='i')[0]
     if "Emeritus" in i_tag.text or "Emerita" in i_tag.text:
         pass
