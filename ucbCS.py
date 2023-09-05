@@ -1,13 +1,10 @@
-import requests
-from bs4 import BeautifulSoup
+import functions
 
 # Change this to False if you want the full names of professors
 LAST_NAMES = True
 URL = "https://www2.eecs.berkeley.edu/Faculty/Lists/CS/faculty.html"
 
-response = requests.get(URL)
-html = response.text
-soup = BeautifulSoup(html, 'html.parser')
+soup = functions.get_soup(URL)
 
 all_media_bodies = soup.find_all('div', recursive=True, class_="media-body")
 media_bodies = []
@@ -37,13 +34,4 @@ for body in media_bodies:
     index = line.rfind(';')
     emails.append(line[index + 1:].strip())
 
-with open('names_ucb.txt', 'w') as f:
-    for name in names:
-        f.write(name + '\n')
-
-with open('emails_ucb.txt', 'w') as f:
-    for email in emails:
-        f.write(email + '\n')
-
-print("Program finished. You can find professor emails in emails_ucb.txt and professor names in names_ucb.txt. These "
-      "have both been created in your local directory.")
+functions.write(emails, names, 'ucbCS', LAST_NAMES)
