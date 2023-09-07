@@ -6,16 +6,23 @@ LAST_NAMES = True
 
 soup = functions.get_soup(URL)
 
+all_tags = soup.find_all('a')
 
-tags = soup.find_all('a')
-emails = []
-names = []
+# Get only the <a> tags that have an email
+email_tags = [tag for tag in all_tags if '@' in tag.text]
+del all_tags
 
-for tag in tags:
-    if '@' in tag.text:
-        emails.append(tag.text)
-for i in range(len(tags)):
-    if '@' in tags[i].text:
-        names.append(tags[i - 1].text.strip())
+# Remove Emeritus and Emerita faculty
+tags = []
+for tag in email_tags:
+    title = tag.parent.parent.findChild('strong').text  # Get the tag that corresponds to a professors title
+    if "Emeritus" in title or "Emerita" in title or "Teaching" in title or "Lecturer" in title:
+        pass
+    else:
+        tags.append(tag)
+del email_tags
+
+names = [tag.parent.parent.findChild('a').text for tag in tags]
+emails = [tag.text for tag in tags]
 
 functions.write(emails, names, 'uciCS', LAST_NAMES)
