@@ -16,11 +16,11 @@ def get_soup(url: str) -> BeautifulSoup:
 
 
 def get_soup_after_js(url: str, wait_for: str, by_what=By.CLASS_NAME) -> BeautifulSoup:
-    '''
+    """
     Returns a BeautifulSoup object that's created with HTML from after a page fully loads. Uses a Selenium object with a
-    Chrome Driver that's included in this repo. You may need to download a new driver for your browser depending on
-    version and what browser you use.
-    '''
+    Chrome Driver that's included in this repo. You may need to download a new driver for your browser depending on what
+    browser and version you use.
+    """
     driver = webdriver.Chrome()
     driver.get(url)
     element = WebDriverWait(driver, 10).until(
@@ -45,5 +45,5 @@ def write(emails: list[str], names: list[str], filename: str, last_names: bool):
             f.write(name + '\n')
 
     print(
-        f"Program finished. You can find professor emails in emails_{filename}.txt and professor names in names_{filename}.txt. These"
-        " have both been created in your local directory.")
+        f"Program finished. You can find professor emails in emails_{filename}.txt and professor names "
+        f"in names_{filename}.txt. These have both been created in your local directory.")
