@@ -1,4 +1,4 @@
-# Email Web Scraper
+# UC Email Web Scraper
 
 This program scrapes a particular UC faculty website to obtain the emails of professors and reserachers. A list of names is also collected. These emails and names are only collected from current, reseraching professors. In other words, teaching professors and emeritus faculty are not included. 
 
