@@ -11,4 +11,4 @@ I created this program to help me find professors to conduct reserach with, and 
 
 ### Usage ###
 
-To execute the program, simply run any of the Python files. Two .txt files are created in the local directory, one of which contains the emails, and the other, the names. 
+To execute the program, simply run any of the Python files. Two .txt files are created in the local directory, one of which contains the emails and one of which contains the names.  
